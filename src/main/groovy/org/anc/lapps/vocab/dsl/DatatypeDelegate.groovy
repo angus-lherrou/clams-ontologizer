@@ -45,7 +45,7 @@ class DatatypeDelegate {
         if (types[longName] != null) {
             throw new VocabularyException("Redefintion of type $longName")
         }
-        Resource type = ResourceFactory.createResource("${VocabDsl.VOCAB}/Datatype#${name}")
+        Resource type = ResourceFactory.createResource("$VocabDsl.VOCAB_PREFIX/$VocabDsl.version/$VocabDsl.VOCAB_DIR/Datatype#${name}")
         types.put(longName, type)
         XmlDelegate delegate = new XmlDelegate(root,"xs:simpleType", types, type)
         body.delegate = delegate
@@ -66,7 +66,8 @@ class DatatypeDelegate {
         if (types[longName] != null) {
             throw new VocabularyException("Redefintion of type $longName")
         }
-        Resource type = ResourceFactory.createResource("${VocabDsl.VOCAB}/Datatype#${name}")
+        //TODO: magic version number
+        Resource type = ResourceFactory.createResource("$VocabDsl.VOCAB_PREFIX/0.1.0/$VocabDsl.VOCAB_DIR/Datatype#${name}")
         types.put(longName, type)
         XmlDelegate delegate = new XmlDelegate(root, "xs:complexType", types, type)
         body.delegate = delegate

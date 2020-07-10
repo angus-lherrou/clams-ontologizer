@@ -1,7 +1,7 @@
 package org.anc.lapps.vocab.dsl
 
 import groovy.cli.commons.CliBuilder
-import org.apache.jena.ext.xerces.impl.Version
+// import org.apache.jena.ext.xerces.impl.Version
 import org.apache.jena.ontology.*
 import org.apache.jena.rdf.model.ModelFactory
 import org.apache.jena.rdf.model.Property
@@ -16,7 +16,9 @@ import org.codehaus.groovy.control.customizers.ImportCustomizer
  * @author Keith Suderman
  */
 class VocabDsl {
-    static final String VOCAB = 'http://vocab.lappsgrid.org'
+    static final String VOCAB = "NO"
+    static final String VOCAB_PREFIX = "https://mmif.clams.ai"
+    static final String VOCAB_DIR = "vocabulary"
     static final String EXTENSION = ".vocab"
 
     Map TYPE_MAP
@@ -44,7 +46,7 @@ class VocabDsl {
     // destroyed as needed.
     OntModel ontology
 
-    String version  = "1.3.0"
+    String version = "0.1.0"
     boolean release = false
 
     // List the script before running it.
@@ -84,19 +86,20 @@ class VocabDsl {
     void initTypeMap() {
         String DATATYPE
         if (release) {
-            DATATYPE = "$VOCAB/Datatype"
+            DATATYPE = "$VOCAB_PREFIX/$VOCAB_DIR/Datatype"
         }
         else {
-            DATATYPE = "$VOCAB/$version/Datatype"
+            DATATYPE = "$VOCAB_PREFIX/$version/$VOCAB_DIR/Datatype"
         }
         final Resource IDREFS = ResourceFactory.createResource("http://www.w3.org/2001/XMLSchema#IDREFS")
+        //TODO: add "List of pairs" type
         TYPE_MAP = [
             ID: XSD.ID,
             "URI": XSD.anyURI,
             "Integer": XSD.xlong,
             "List of IDs": IDREFS,
-//            "List of URI": ResourceFactory.createResource("$DATATYPE#list_uri"),
-//            "List of Strings": ResourceFactory.createResource("$DATATYPE#string_list"),
+            "List of URI": ResourceFactory.createResource("$DATATYPE#list_uri"),
+            "List of Strings": ResourceFactory.createResource("$DATATYPE#string_list"),
             "Set of IDs": IDREFS,
             "String": XSD.xstring,
             "String or URI": XSD.xstring
@@ -154,10 +157,10 @@ class VocabDsl {
 
         if (type.startsWith("Datatype#")) {
             if (release) {
-                resource = ontology.createResource("${VOCAB}/${type}")
+                resource = ontology.createResource("$VOCAB_PREFIX/$VOCAB_DIR/${type}")
             }
             else {
-                resource = ontology.createResource("${VOCAB}/${version}/${type}")
+                resource = ontology.createResource("$VOCAB_PREFIX/$version/$VOCAB_DIR/${type}")
             }
         }
         else {
@@ -202,11 +205,11 @@ class VocabDsl {
     }
 
     DatatypeProperty makeProperty(String annotation, String name) {
-        return ontology.createDatatypeProperty("${VOCAB}/${annotation}#${name}")
+        return ontology.createDatatypeProperty("$VOCAB_PREFIX/$version/$VOCAB_DIR/${annotation}#${name}")
     }
 
     AnnotationProperty makeMetadata(String name) {
-        return ontology.createAnnotationProperty("${VOCAB}/metadata#${name}")
+        return ontology.createAnnotationProperty("$VOCAB_PREFIX/$version/$VOCAB_DIR/metadata#${name}")
     }
 
     void makeOwl(File script, File destination, String ext) {
@@ -234,7 +237,7 @@ class VocabDsl {
         // Issue #10. Specify a model that does not do inferencing so only
         // relationships expressed in model are included in the output.
         ontology = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM)
-        OntResource ontResource = ontology.createOntology(VOCAB)
+        OntResource ontResource = ontology.createOntology("$VOCAB_PREFIX/$version/$VOCAB_DIR")
         ontResource.addVersionInfo(ontology.createLiteral(bindings.version).toString())
         elements.each { ElementDelegate element ->
             println "Processing ${element.name}"
@@ -242,7 +245,7 @@ class VocabDsl {
             if (theClass) {
                 throw new VocabularyException("Duplicate element : ${element.name}")
             }
-            theClass = ontology.createClass(VOCAB + '/' + element.name)
+            theClass = ontology.createClass("$VOCAB_PREFIX/$version/$VOCAB_DIR" + '/' + element.name)
             classes[element.name] = theClass
             if (element.definition) {
                 theClass.addComment(ontology.createLiteral(element.definition))
