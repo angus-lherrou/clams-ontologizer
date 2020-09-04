@@ -37,49 +37,49 @@ class DatatypeDelegate {
         }
     }
 
-    void simpleType(String name, Closure body) {
-        simpleType(name, name, body)
-    }
-
-    void simpleType(String name, String longName, Closure body) {
-        if (types[longName] != null) {
-            throw new VocabularyException("Redefintion of type $longName")
-        }
-        //TODO: magic version number
-        Resource type = ResourceFactory.createResource("$Formats.VOCAB_PREFIX/0.1.0/$Formats.VOCAB_DIR/Datatype#${name}")
-        types.put(longName, type)
-        XmlDelegate delegate = new XmlDelegate(root,"xs:simpleType", types, type)
-        body.delegate = delegate
-        body.resolveStrategy = Closure.DELEGATE_FIRST
-        body()
-        Node node = delegate.node
-        node.attributes().with {
-            put("name", name)
-            put("id", name)
-        }
-    }
-
-    void complexType(String name, Closure body) {
-        complexType(name, name, body)
-    }
-
-    void complexType(String name, String longName, Closure body) {
-        if (types[longName] != null) {
-            throw new VocabularyException("Redefintion of type $longName")
-        }
-        //TODO: magic version number
-        Resource type = ResourceFactory.createResource("$Formats.VOCAB_PREFIX/0.1.0/$Formats.VOCAB_DIR/Datatype#${name}")
-        types.put(longName, type)
-        XmlDelegate delegate = new XmlDelegate(root, "xs:complexType", types, type)
-        body.delegate = delegate
-        body.resolveStrategy = Closure.DELEGATE_FIRST
-        body()
-        Node node = delegate.node
-        node.attributes().with {
-            put("name", name)
-            put("id", name)
-        }
-    }
+//    void simpleType(String name, Closure body) {
+//        simpleType(name, name, body)
+//    }
+//
+//    void simpleType(String name, String longName, Closure body) {
+//        if (types[longName] != null) {
+//            throw new VocabularyException("Redefintion of type $longName")
+//        }
+//        //TODO: magic version number
+//        Resource type = ResourceFactory.createResource("$Formats.VOCAB_PREFIX/0.1.0/$Formats.VOCAB_DIR/Datatype#${name}")
+//        types.put(longName, type)
+//        XmlDelegate delegate = new XmlDelegate(root,"xs:simpleType", types, type)
+//        body.delegate = delegate
+//        body.resolveStrategy = Closure.DELEGATE_FIRST
+//        body()
+//        Node node = delegate.node
+//        node.attributes().with {
+//            put("name", name)
+//            put("id", name)
+//        }
+//    }
+//
+//    void complexType(String name, Closure body) {
+//        complexType(name, name, body)
+//    }
+//
+//    void complexType(String name, String longName, Closure body) {
+//        if (types[longName] != null) {
+//            throw new VocabularyException("Redefintion of type $longName")
+//        }
+//        //TODO: magic version number
+//        Resource type = ResourceFactory.createResource("$Formats.VOCAB_PREFIX/0.1.0/$Formats.VOCAB_DIR/Datatype#${name}")
+//        types.put(longName, type)
+//        XmlDelegate delegate = new XmlDelegate(root, "xs:complexType", types, type)
+//        body.delegate = delegate
+//        body.resolveStrategy = Closure.DELEGATE_FIRST
+//        body()
+//        Node node = delegate.node
+//        node.attributes().with {
+//            put("name", name)
+//            put("id", name)
+//        }
+//    }
 }
 
 class XmlDelegate {
