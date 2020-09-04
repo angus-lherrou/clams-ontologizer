@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.anc.lapps.vocab.dsl
+package ai.clams.mmif.formats
 
 import groovy.xml.MarkupBuilder
 import groovy.xml.XmlUtil

@@ -8,12 +8,12 @@
         <artifactId>groovy-parent-pom</artifactId>
         <version>2.2.1</version>
     </parent>
-    <groupId>org.anc.lapps</groupId>
+    <groupId>ai.clams.mmif</groupId>
     <artifactId>vocab-dsl</artifactId>
-    <version>1.5.0-SNAPSHOT</version>
-    <name>LAPPS Vocabulary DSL</name>
-    <description>DSL processor used to generate the LAPP Vocabulary web pages.</description>
-    <url>https://github.com/lappsgrid-incubator/vocabulary-dsl</url>
+    <version>L1.0-SNAPSHOT</version>
+    <name>MMIF Ontology Format Generator</name>
+    <description>RDF/OWL/JSON-LD/TTL generator for MMIF derived from the LAPPS DSL processor used to generate the LAPPS Vocabulary web pages.</description>
+    <url>https://github.com/angus-lherrou/vocabulary-dsl</url>
     <licenses>
         <license>
             <name>The Apache License. Version 2.0</name>
@@ -21,18 +21,14 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/lappsgrid-incubator/vocabulary-dsl</url>
-        <connection>scm:git:https://github.com/lappsgrid-incubator/vocabulary-dsl.git</connection>
-        <developerConnection>scm:git:https://github.com/lappsgrid-incubator/vocabulary-dsl.git</developerConnection>
+        <url>https://github.com/angus-lherrou/vocabulary-dsl</url>
+        <connection>scm:git:https://github.com/angus-lherrou/vocabulary-dsl.git</connection>
+        <developerConnection>scm:git:https://github.com/angus-lherrou/vocabulary-dsl.git</developerConnection>
     </scm>
     <issueManagement>
-        <url>https://github.com/lappsgrid-incubator/vocabulary-dsl/issues</url>
+        <url>https://github.com/angus-lherrou/vocabulary-dsl/issues</url>
         <system>GitHub issues</system>
     </issueManagement>
-    <ciManagement>
-        <url>https://travis-ci.org/lappsgrid-incubator/vocabulary-dsl</url>
-        <system>travis</system>
-    </ciManagement>
     <properties>
         <java.version>1.8</java.version>
         <template.version>1.0.1</template.version>
@@ -44,7 +40,7 @@
                 <artifactId>anc-maven-plugin</artifactId>
                 <version>1.1.0</version>
                 <configuration>
-                    <package>org.anc.lapps.vocab.dsl</package>
+                    <package>ai.clams.mmif.formats</package>
                 </configuration>
                 <executions>
                     <execution>
@@ -106,7 +102,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.anc.lapps.vocab.dsl.VocabDsl</mainClass>
+                                    <mainClass>ai.clams.mmif.formats.Formats</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

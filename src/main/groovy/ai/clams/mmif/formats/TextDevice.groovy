@@ -1,4 +1,4 @@
-package org.anc.lapps.vocab.dsl
+package ai.clams.mmif.formats
 
 
 /**

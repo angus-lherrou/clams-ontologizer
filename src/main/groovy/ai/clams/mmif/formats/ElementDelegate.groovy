@@ -1,4 +1,4 @@
-package org.anc.lapps.vocab.dsl
+package ai.clams.mmif.formats
 
 import groovy.transform.MapConstructor
 
@@ -20,8 +20,8 @@ class ElementDelegate {
     List<String> sameAs = []
     List<String> similarTo = []
     String uri
-    Map properties = [:]
-    Map metadata = [:]
+    Map<String, PropertyDelegate> properties = [:]
+    Map<String, PropertyDelegate> metadata = [:]
 
     List<ElementDelegate> elements
 
@@ -49,9 +49,9 @@ class ElementDelegate {
         this.definition = definition
     }
 
-    void discriminator(String discriminator) {
-        this.discriminator = discriminator
-    }
+//    void discriminator(String discriminator) {
+//        this.discriminator = discriminator
+//    }
 
     void deprecated(String message) {
         this.deprecated = message

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.anc.lapps.vocab.dsl
+package ai.clams.mmif.formats
 
 import org.junit.Ignore
 import org.junit.Test
@@ -23,50 +23,50 @@ import org.junit.Test
  *
  */
 @Ignore
-class VocabDslTest {
+class FormatsTest {
 
     @Test
     void generateTTL() {
         String[] args = "-r ttl -v 1.0.0 src/test/resources/lapps.vocab".split()
-        VocabDsl.main(args)
+        Formats.main(args)
     }
 
     @Test
     void generateIdrefs() {
-        VocabDsl.main("-r ttl -v 1.0.0 src/test/resources/idref.vocab".split())
+        Formats.main("-r ttl -v 1.0.0 src/test/resources/idref.vocab".split())
     }
 
     @Test
     void generateXSD() {
         String[] args = "--xsd src/test/resources/lapps.vocab".split()
-        VocabDsl.main(args)
+        Formats.main(args)
     }
 
     @Test
     void generateExampleVocabulary() {
         ['ttl', 'owl', 'rdf', 'jsonld'].each { String format ->
             String[] args = "-r $format src/test/resources/example.vocabulary".split()
-            VocabDsl.main(args)
+            Formats.main(args)
         }
     }
 
     @Test
     void generateExampleTTL() {
         String[] args = "-r ttl src/test/resources/example.vocabulary".split()
-        VocabDsl.main(args)
+        Formats.main(args)
     }
 
     @Test
     void generateAll() {
         ['ttl', 'owl', 'rdf', 'jsonld'].each { String format ->
             String[] args = "-r $format src/test/resources/lapps.vocab".split()
-            VocabDsl.main(args)
+            Formats.main(args)
         }
     }
 
     @Test
     void generateSchema() {
-        VocabDsl.main("-x src/test/resources/lapps.vocab".split())
+        Formats.main("-x src/test/resources/lapps.vocab".split())
     }
 
     @Test
@@ -89,7 +89,7 @@ AnotherThing {
     }
 }
 '''
-        VocabDsl dsl = new VocabDsl()
+        Formats dsl = new Formats()
         try {
             dsl.run(script, new File('/tmp'))
             println dsl.elements.size()
@@ -116,7 +116,7 @@ Thing {
     }
 }
 '''
-        VocabDsl dsl = new VocabDsl()
+        Formats dsl = new Formats()
         dsl.printListing = true
         dsl.version = '1.0.0'
         dsl.run(src, new File("/tmp"))
@@ -125,6 +125,6 @@ Thing {
     @Test
     void version() {
         String[] args = [ '-v' ]
-        VocabDsl.main(args)
+        Formats.main(args)
     }
 }
