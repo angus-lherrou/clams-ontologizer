@@ -45,7 +45,7 @@ class Formats {
     // destroyed as needed.
     OntModel ontology
 
-    String version = "0.2.0"
+    String version;
     boolean release = false
 
     // List the script before running it.
