@@ -1,3 +1,3 @@
 # CLAMS Ontologizer
 
-Readme in progress.
+Deprecated.
